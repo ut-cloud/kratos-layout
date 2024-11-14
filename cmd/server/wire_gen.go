@@ -10,6 +10,7 @@ import (
 	"github.com/go-kratos/kratos-layout/internal/biz"
 	"github.com/go-kratos/kratos-layout/internal/conf"
 	"github.com/go-kratos/kratos-layout/internal/data"
+	"github.com/go-kratos/kratos-layout/internal/model"
 	"github.com/go-kratos/kratos-layout/internal/server"
 	"github.com/go-kratos/kratos-layout/internal/service"
 	"github.com/go-kratos/kratos/v2"
@@ -24,7 +25,9 @@ import (
 
 // wireApp init kratos application.
 func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
-	dataData, cleanup, err := data.NewData(confData, logger)
+	db := model.NewDB(confData)
+	pool := model.NewRedisPool(confData)
+	dataData, cleanup, err := data.NewData(confData, logger, db, pool)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -32,7 +35,7 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	greeterUsecase := biz.NewGreeterUsecase(greeterRepo, logger)
 	greeterService := service.NewGreeterService(greeterUsecase)
 	grpcServer := server.NewGRPCServer(confServer, greeterService, logger)
-	httpServer := server.NewHTTPServer(confServer, greeterService, logger)
+	httpServer := server.NewHTTPServer(confServer, pool, greeterService, logger)
 	app := newApp(logger, grpcServer, httpServer)
 	return app, func() {
 		cleanup()
