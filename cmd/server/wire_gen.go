@@ -15,6 +15,7 @@ import (
 	"github.com/go-kratos/kratos-layout/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"go.opentelemetry.io/otel/sdk/trace"
 )
 
 import (
@@ -24,7 +25,7 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
+func wireApp(confServer *conf.Server, confData *conf.Data, registry *conf.Registry, tracerProvider *trace.TracerProvider, logger log.Logger) (*kratos.App, func(), error) {
 	db := model.NewDB(confData)
 	pool := model.NewRedisPool(confData)
 	dataData, cleanup, err := data.NewData(confData, logger, db, pool)
@@ -35,8 +36,8 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	greeterUsecase := biz.NewGreeterUsecase(greeterRepo, logger)
 	greeterService := service.NewGreeterService(greeterUsecase)
 	grpcServer := server.NewGRPCServer(confServer, greeterService, logger)
-	httpServer := server.NewHTTPServer(confServer, pool, greeterService, logger)
-	app := newApp(logger, grpcServer, httpServer)
+	registrar := data.NewRegistrar(registry)
+	app := newApp(confServer, logger, grpcServer, registrar)
 	return app, func() {
 		cleanup()
 	}, nil

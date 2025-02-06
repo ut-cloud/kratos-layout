@@ -80,3 +80,7 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
+
+
+wire:
+	cd cmd/server && wire

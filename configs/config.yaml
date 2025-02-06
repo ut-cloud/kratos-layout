@@ -1,18 +1,13 @@
-server:
-  http:
-    addr: 0.0.0.0:8000
-    timeout: 1s
-  grpc:
-    addr: 0.0.0.0:9000
-    timeout: 1s
-data:
-  database:
-    driver: mysql
-    source: root:root@tcp(127.0.0.1:3306)/test?parseTime=True&loc=Local
-  redis:
-    network: tcp
-    addr: 127.0.0.1:6379
-    password:
-    db: 1
-    read_timeout: 0.2s
-    write_timeout: 0.2s
+nacos:
+  address: mse-189186c6-p.nacos-ans.mse.aliyuncs.com
+  port: 8848
+  groupName: TOP
+  namespaceId: default
+  accessKey: aaa
+  secretKey: aaa
+  configItems:
+    - dataId: common.yaml
+      groupName: default
+    - dataId: server.yaml
+      groupName: default
+

@@ -8,6 +8,7 @@ import "google/protobuf/duration.proto";
 message Bootstrap {
   Server server = 1;
   Data data = 2;
+  Trace trace = 4;
 }
 
 message Server {
@@ -23,6 +24,14 @@ message Server {
   }
   HTTP http = 1;
   GRPC grpc = 2;
+  string id = 3;
+  string name = 4;
+  string version = 5;
+  string environment = 6;
+}
+
+message Trace {
+  string endpoint = 1;
 }
 
 message Data {
@@ -41,4 +50,28 @@ message Data {
   }
   Database database = 1;
   Redis redis = 2;
+}
+
+message Registry{
+  message Consul {
+    string address = 1;
+    string scheme = 2;
+  }
+  message Nacos {
+    string address = 1;
+    uint64 port = 2;
+    string namespaceId = 3;
+    string username = 4;
+    string password = 5;
+    string groupName = 6;
+    string accessKey = 7;
+    string secretKey = 8;
+    repeated ConfigItems configItems = 9;
+    message ConfigItems {
+      string dataId = 1;
+      string groupName = 2;
+    }
+  }
+  Consul consul = 1;
+  Nacos nacos = 2;
 }
