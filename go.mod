@@ -4,13 +4,15 @@ go 1.23.2
 
 require (
 	github.com/go-kratos/kratos/contrib/config/nacos/v2 v2.0.0-20250127095200-20970020a5ef
+	github.com/go-kratos/kratos/contrib/registry/nacos/v2 v2.0.0-20250127095200-20970020a5ef
 	github.com/go-kratos/kratos/v2 v2.8.3
 	github.com/gomodule/redigo v1.9.2
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
 	github.com/gorilla/handlers v1.5.2
 	github.com/jinzhu/copier v0.4.0
-	github.com/ut-cloud/atlas-toolkit v0.0.19
+	github.com/nacos-group/nacos-sdk-go v1.1.5
+	github.com/ut-cloud/atlas-toolkit v0.0.20
 	go.opentelemetry.io/otel/sdk v1.24.0
 	go.uber.org/automaxprocs v1.5.1
 	google.golang.org/genproto/googleapis/api v0.0.0-20240814211410-ddb44dafa142
@@ -32,7 +34,6 @@ require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/go-kratos/aegis v0.2.0 // indirect
-	github.com/go-kratos/kratos/contrib/registry/nacos/v2 v2.0.0-20250127095200-20970020a5ef // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-playground/form/v4 v4.2.1 // indirect
@@ -46,7 +47,6 @@ require (
 	github.com/json-iterator/go v1.1.6 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
-	github.com/nacos-group/nacos-sdk-go v1.1.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	go.opentelemetry.io/otel v1.24.0 // indirect
 	go.opentelemetry.io/otel/exporters/jaeger v1.17.0 // indirect
